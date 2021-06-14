@@ -1,5 +1,6 @@
 const express = require("express");
 const apiRoute = require('./routes/routes');
+const htmlRoute = require('./routes/routes');
 
 // Initialize the app and create a port
 const app = express();
@@ -9,6 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use('/', apiRoute);
+app.use('/notes', htmlRoute);
 
 // Start the server on the port
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
