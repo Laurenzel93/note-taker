@@ -3,24 +3,39 @@ const util = require('util');
 const uuidv1 = require('../node_modules/uuid/v1')
 const writeFileAsync = util.promisify(fs.writeFile);
 
-class NoteStorage {  
-write(note) {
-    return writeFileAsync('db/db.json', JSON.stringify(note));
-};
+class NoteStorage {
 
-addNote(note) {
-    const { title, text } = note;
+    write(note) {
+        return writeFileAsync('db/db.json', JSON.stringify(note));
+    };
 
-    if (!title || !text) {
-        throw new Error("Note 'title' and 'text' cannot be empty");
+    getNotes() {
+        return this.read().then((notes) => {
+            let parsedNotes;
+
+            // If notes isn't an array or can't be turned into one, send back a new empty array
+            try {
+                parsedNotes = [].concat(JSON.parse(notes));
+            } catch (err) {
+                parsedNotes = [];
+            }
+
+            return parsedNotes;
+        });
     }
 
-    const newNote = { title, text, id: uuidv1() };
+    addNote(note) {
+        const { title, text } = note;
 
-    return this.getNotes()
-        .then((notes) => [...notes, newNote])
+        if (!title || !text) {
+            throw new Error("Note 'title' and 'text' cannot be empty");
+        }
+
+        const newNote = { title, text, id: uuidv1() };
+
+        return this.getNotes().then((notes) => [...notes, newNote])
         .then((updatedNotes) => this.write(updatedNotes))
         .then(() => newNote);
-}
+    }
 }
 module.exports = new NoteStorage();
