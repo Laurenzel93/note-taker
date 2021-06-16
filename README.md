@@ -34,4 +34,3 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 ![Screenshot](assets/note-taker1.png)
 ![Screenshot](assets/note-taker2.png)
-![Screenshot](assets/note-taker3.png)
