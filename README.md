@@ -1,6 +1,6 @@
 # note-taker
 
-Deployed Link: https://laurenzel93.github.io/note-taker/ <br>
+Deployed Link: https://note-taker3993.herokuapp.com/ <br>
 GitHub Page: https://github.com/Laurenzel93/note-taker
 
 
